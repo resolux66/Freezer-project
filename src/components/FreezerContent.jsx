@@ -4,9 +4,9 @@ import openFreezer from "../assets/openFreezer.png";
 
 function FreezerContent() {
   const navigate = useNavigate();
-  const onClick = (event) => {
+  const handleDrawerClick = (event, drawerId) => {
     event.preventDefault();
-    navigate("/drawer");
+    navigate("/drawer", { state: { drawerId } });
   };
 
   return (
@@ -23,35 +23,35 @@ function FreezerContent() {
           <area
             shape="rect"
             coords="110,64,255,113"
-            onClick={onClick}
+            onClick={(e) => handleDrawerClick(e, 1)}
             href="#"
             title="Open me"
           />
           <area
             shape="rect"
             coords="110,126,255,173"
-            onClick={onClick}
+            onClick={(e) => handleDrawerClick(e, 2)}
             href="#"
             title="Open me"
           />
           <area
             shape="rect"
             coords="110,190,255,234"
-            onClick={onClick}
+            onClick={(e) => handleDrawerClick(e, 3)}
             href="#"
             title="Open me"
           />
           <area
             shape="rect"
             coords="110,251,255,297"
-            onClick={onClick}
+            onClick={(e) => handleDrawerClick(e, 4)}
             href="#"
             title="Open me"
           />
           <area
             shape="rect"
             coords="110,310,255,362"
-            onClick={onClick}
+            onClick={(e) => handleDrawerClick(e, 5)}
             href="#"
             title="Open me"
           />
