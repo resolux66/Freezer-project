@@ -1,23 +1,53 @@
-import { useLocation } from "react-router-dom";
-import { FREEZER_DATA } from "../data";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useFreezer } from "./FreezerContext";
 
 export default function DrawerContent() {
   const location = useLocation();
   const { drawerId } = location.state || {};
-  const drawer = FREEZER_DATA.find((d) => d.id === drawerId);
+  const { freezerData, dispatch } = useFreezer();
+  const drawer = freezerData.find((d) => d.id === drawerId);
   const items = drawer?.items || [];
+
+  const [isAdding, setIsAdding] = useState(false);
+  const [newItemName, setNewItemName] = useState("");
+
+  const handleSaveItem = () => {
+    if (!newItemName.trim()) return;
+    dispatch({
+      type: "ADD_ITEM",
+      drawerId: drawer.id,
+      name: newItemName.trim(),
+    });
+    setNewItemName("");
+    setIsAdding(false);
+  };
 
   return (
     <div>
       <h1>{drawer?.name ?? "Unknown drawer"}</h1>
-      <button>Add Item</button>
+      <button onClick={() => setIsAdding(true)}>Add Item</button>
+      {isAdding && (
+        <div>
+          <input
+            type="text"
+            value={newItemName}
+            onChange={(e) => setNewItemName(e.target.value)}
+          />
+          <button onClick={handleSaveItem}>Save</button>
+          <button onClick={() => setIsAdding(false)}>Cancel</button>
+        </div>
+      )}
       <ul>
-        {items.map((item) => (
-          <li key={item.id}>
-            {item.name} - Added on: {item.dateAdded}
-          </li>
-        ))}
+        {items.map((item) =>
+          item.id ? (
+            <li key={item.id}>
+              {item.name} - Added on: {item.dateAdded} <button>Remove</button>
+            </li>
+          ) : null
+        )}
       </ul>
+      <Link to="/freezer">Close Drawer</Link>
     </div>
   );
 }
