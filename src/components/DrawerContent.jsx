@@ -23,6 +23,15 @@ export default function DrawerContent() {
     setIsAdding(false);
   };
 
+  const handleRemoveItem = (itemId) => {
+    // Implement remove item functionality here
+    dispatch({
+      type: "REMOVE_ITEM",
+      drawerId: drawer.id,
+      itemId,
+    });
+  };
+
   return (
     <div>
       <h1>{drawer?.name ?? "Unknown drawer"}</h1>
@@ -42,7 +51,8 @@ export default function DrawerContent() {
         {items.map((item) =>
           item.id ? (
             <li key={item.id}>
-              {item.name} - Added on: {item.dateAdded} <button>Remove</button>
+              {item.name} - Added on: {item.dateAdded}{" "}
+              <button onClick={() => handleRemoveItem(item.id)}>Remove</button>
             </li>
           ) : null
         )}

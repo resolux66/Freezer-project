@@ -23,6 +23,16 @@ function freezerReducer(state, action) {
             }
           : drawer
       );
+
+    case "REMOVE_ITEM":
+      return state.map((drawer) =>
+        drawer.id === action.drawerId
+          ? {
+              ...drawer,
+              items: drawer.items.filter((item) => item.id !== action.itemId),
+            }
+          : drawer
+      );
     default:
       return state;
   }

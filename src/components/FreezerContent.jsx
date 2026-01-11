@@ -9,8 +9,6 @@ export default function FreezerContent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  console.log("Freezer data:", freezerData);
-
   if (!freezerData || freezerData.length === 0) {
     return <div>Loading...</div>;
   }
@@ -29,7 +27,6 @@ export default function FreezerContent() {
       }
     });
     setSearchResults(result);
-    console.log("Search results:", result);
   };
   const handleDrawerClick = (event, drawerId) => {
     event.preventDefault();
@@ -48,6 +45,7 @@ export default function FreezerContent() {
         />
         <button onClick={handleFind}>Find</button>
       </section>
+      {searchResults.length === 0 && <p>No {searchTerm} found.</p>}
       {searchResults.length > 0 && (
         <section>
           <h3>Found in:</h3>
