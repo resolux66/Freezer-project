@@ -45,7 +45,9 @@ export default function FreezerContent() {
         />
         <button onClick={handleFind}>Find</button>
       </section>
-      {searchResults.length === 0 && <p>No {searchTerm} found.</p>}
+      {searchResults.length === 0 && searchTerm && (
+        <p>No {searchTerm} found.</p>
+      )}
       {searchResults.length > 0 && (
         <section>
           <h3>Found in:</h3>

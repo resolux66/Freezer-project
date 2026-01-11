@@ -39,6 +39,7 @@ export default function DrawerContent() {
       {isAdding && (
         <div>
           <input
+            autoFocus
             type="text"
             value={newItemName}
             onChange={(e) => setNewItemName(e.target.value)}
