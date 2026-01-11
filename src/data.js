@@ -2,7 +2,7 @@ export const FREEZER_DATA = [
   {
     id: 1,
     name: "Top Drawer",
-    items: [{}],
+    items: [],
   },
   {
     id: 2,

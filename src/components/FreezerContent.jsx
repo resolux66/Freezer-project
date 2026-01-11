@@ -1,9 +1,36 @@
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useFreezer } from "./FreezerContext";
 import openFreezer from "../assets/openFreezer.png";
 
-function FreezerContent() {
+export default function FreezerContent() {
   const navigate = useNavigate();
+  const { freezerData } = useFreezer();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  console.log("Freezer data:", freezerData);
+
+  if (!freezerData || freezerData.length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  const handleFind = () => {
+    if (!searchTerm.trim()) return; // don't search for empty or only whitespace
+    const result = [];
+    freezerData.forEach((drawer) => {
+      if (!drawer.items || !drawer.items.length) return;
+
+      const matches = drawer.items.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      if (matches.length > 0) {
+        result.push({ drawer: drawer, matches: matches }); // Push the entire drawer object
+      }
+    });
+    setSearchResults(result);
+    console.log("Search results:", result);
+  };
   const handleDrawerClick = (event, drawerId) => {
     event.preventDefault();
     navigate("/drawer", { state: { drawerId } });
@@ -12,6 +39,45 @@ function FreezerContent() {
   return (
     <div>
       <h1>Freezer Content</h1>
+      <section>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search for an item..."
+        />
+        <button onClick={handleFind}>Find</button>
+      </section>
+      {searchResults.length > 0 && (
+        <section>
+          <h3>Found in:</h3>
+          <ul>
+            {searchResults.map(
+              ({ drawer, matches }) =>
+                drawer && (
+                  <li key={drawer.id}>
+                    {drawer.name} : {matches.length} matches
+                    <ul>
+                      {matches.map((item) => (
+                        <li key={item.id}>
+                          {item.name}- Added on {item.dateAdded}
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() =>
+                        navigate("/drawer", { state: { drawerId: drawer.id } })
+                      }
+                    >
+                      Open
+                    </button>
+                  </li>
+                )
+            )}
+          </ul>
+        </section>
+      )}
+
       <div>
         <img
           src={openFreezer}
@@ -62,10 +128,7 @@ function FreezerContent() {
         <Link to="/">
           <button>Close Freezer</button>
         </Link>
-        <button>Find</button>
       </section>
     </div>
   );
 }
-
-export default FreezerContent;
