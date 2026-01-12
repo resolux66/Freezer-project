@@ -15,6 +15,7 @@
 
 a {
   font-weight: 500;
+  margin: auto;
   color: #646cff;
   text-decoration: inherit;
 }
@@ -28,11 +29,45 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #322f42;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.4em;
   line-height: 1.1;
+  color: ivory;
+}
+
+.closedFreezerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.findItem {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  justify-content: space-between;
+  color: lavenderblush;
+}
+
+li {
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: #3a3a3a;
+  display: flex;
+  justify-content: space-between;
 }
 
 button {
@@ -63,6 +98,6 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #888080;
   }
 }

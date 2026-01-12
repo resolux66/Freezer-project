@@ -34,9 +34,9 @@ export default function FreezerContent() {
   };
 
   return (
-    <div>
+    <div className="freezerContent">
       <h1>Freezer Content</h1>
-      <section>
+      <section className="findItem">
         <input
           type="text"
           value={searchTerm}

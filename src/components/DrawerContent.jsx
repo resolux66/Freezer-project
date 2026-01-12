@@ -37,7 +37,7 @@ export default function DrawerContent() {
       <h1>{drawer?.name ?? "Unknown drawer"}</h1>
       <button onClick={() => setIsAdding(true)}>Add Item</button>
       {isAdding && (
-        <div>
+        <div className="findItem">
           <input
             autoFocus
             type="text"
