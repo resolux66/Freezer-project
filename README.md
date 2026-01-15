@@ -10,7 +10,7 @@ Small React app to help organize what is stored in each drawer of a freezer. The
 - Search across all drawers by item name, showing drawers and matching items.[file:65]  
 - State stored in React (with optional Context + reducer and localStorage or backend persistence).[conversation_history:3][web:60]
 
-<img src="./public/closedFreezer.jpg" />
+<img src="./public/closedFreezer.png" />
 
 ## Tech Stack
 
